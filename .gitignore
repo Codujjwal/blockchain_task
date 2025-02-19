@@ -36,4 +36,4 @@ vite.config.ts.*
 *.tar.gz
 
 # TypeScript
-*.tsbuildinfo
+*.tsbuildinfo# Test commit to verify secure token configuration
