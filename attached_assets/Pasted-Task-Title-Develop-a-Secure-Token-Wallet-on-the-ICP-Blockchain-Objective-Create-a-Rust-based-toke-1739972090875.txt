@@ -1,0 +1,58 @@
+Task Title: Develop a Secure Token Wallet on the ICP Blockchain
+
+Objective:
+Create a Rust-based token wallet for the Internet Computer Protocol (ICP) blockchain. This
+wallet should support basic functionalities such as sending and receiving IRCRC2 tokens, and it
+should demonstrate your proficiency with Rust and blockchain principles.
+
+Requirements:
+
+Blockchain Development:
+Smart Contracts: 
+Use Rust to develop smart contracts that manage token transactions.
+Deployment: 
+Deploy the contracts to a local ICP test network.
+Smart Contract Features:
+Add token sending and receiving functionalities.
+Implement basic wallet security features.
+Fetch and display token balances.
+Testing:
+Develop unit tests using the ICP framework to validate the functions of the smart contracts.
+
+Functionality:
+Send Tokens: 
+Users should be able to send tokens to other addresses.
+Receive Tokens:
+The wallet should be able to receive tokens and update the balance accordingly.
+Balance Display: 
+ Show the current token balance of the wallet.
+
+Deliverables:
+Rust code for the token wallet, ready to be deployed on a local ICP testnet.
+A basic suite of unit tests.
+Documentation with setup and testing instructions, hosted in a GitHub repository.
+
+
+Skills Required:
+Advanced Rust programming skills.
+Experience with smart contract development on the ICP blockchain.
+Basic understanding of token standards (IRCRC2) and blockchain security practices.
+
+Timeline:
+The task must be started and completed within 48 hours, with an initial progress report due after the first 24 hours.
+
+Resources:
+Access to documentation and developer tools for ICP and Rust.
+A communication channel for technical support inquiries.
+
+Evaluation Criteria:
+Functionality: The wallet must perform all specified operations without errors.
+Code Quality: Code should be clean, well-organized, and thoroughly commented.
+Security: Implementation of security measures to protect wallet transactions.
+Documentation: Clear and comprehensive documentation for setting up and operating the wallet.
+
+Submission Guidelines:
+Submit your project as a link to a GitHub repository.
+Include a README with detailed setup and operational instructions.
+Ensure the code is well-commented to explain your logic and methods.
+Submit your project via this form.
