@@ -35,14 +35,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.post("/api/send", async (req, res) => {
-    const parsed = insertTransactionSchema.safeParse(req.body);
-    if (!parsed.success) {
-      return res.status(400).json({ message: "Invalid input" });
+    const { fromUserId, recipientUsername, amount } = req.body;
+
+    if (!fromUserId || !recipientUsername || !amount) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const { fromUserId, toUserId, amount } = parsed.data;
     const sender = await storage.getUser(fromUserId);
-    const recipient = await storage.getUser(toUserId);
+    const recipient = await storage.getUserByUsername(recipientUsername);
 
     if (!sender || !recipient) {
       return res.status(404).json({ message: "User not found" });
@@ -53,24 +53,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     const transaction = await storage.createTransaction({
-      ...parsed.data,
+      fromUserId: sender.id,
+      toUserId: recipient.id,
+      amount: amount.toString(),
       status: "completed"
     });
 
-    await storage.updateUserBalance(fromUserId, (parseFloat(sender.balance) - parseFloat(amount)).toString());
-    await storage.updateUserBalance(toUserId, (parseFloat(recipient.balance) + parseFloat(amount)).toString());
+    await storage.updateUserBalance(
+      sender.id, 
+      (parseFloat(sender.balance) - parseFloat(amount)).toString()
+    );
+
+    await storage.updateUserBalance(
+      recipient.id, 
+      (parseFloat(recipient.balance) + parseFloat(amount)).toString()
+    );
 
     return res.json(transaction);
   });
 
   app.get("/api/transactions/:userId", async (req, res) => {
     const userId = parseInt(req.params.userId);
+    if (isNaN(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
     const transactions = await storage.getUserTransactions(userId);
     return res.json(transactions);
   });
 
   app.post("/api/toggle-lock/:userId", async (req, res) => {
     const userId = parseInt(req.params.userId);
+    if (isNaN(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
     const user = await storage.toggleLock(userId);
     return res.json(user);
   });
